@@ -11,7 +11,7 @@ import _ from 'lodash';
 export class HomeComponent implements OnInit {
 
   private originalQuestions = {};
-  private filters = [];
+  public filters = [];
   public currentQuestions = [];
   public currentFilterToAdd;
   public and = true;
