@@ -10,6 +10,6 @@ export class CoreServiceService {
   constructor(public http: HttpClient) { }
 
   public getQuestions(): Observable<any>{
-    return this.http.get('./assets/questionsObj.json');
+    return this.http.get('./assets/questions.json');
   }
 }
