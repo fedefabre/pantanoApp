@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
 
   constructor(public coreService: CoreServiceService) { 
     if (window.screen.width < 500) {
-      console.log('mobile');
       this.mobile = true;
     }
   }

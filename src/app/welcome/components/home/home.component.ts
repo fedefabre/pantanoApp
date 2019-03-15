@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeWelcomeComponent implements OnInit {
 
-  constructor() { }
+  mobile = false;
+
+  constructor() { 
+    if (window.screen.width < 500) {
+      this.mobile = true;
+    }
+  }
 
   ngOnInit() {
   }
