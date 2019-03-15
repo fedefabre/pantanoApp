@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+  selector: 'app-home-game',
+  templateUrl: './home-game.component.html',
+  styleUrls: ['./home-game.component.less']
 })
-export class HomeWelcomeComponent {
+export class HomeGameComponent{
 
   mobile = false;
 
@@ -14,4 +14,5 @@ export class HomeWelcomeComponent {
       this.mobile = true;
     }
   }
+
 }

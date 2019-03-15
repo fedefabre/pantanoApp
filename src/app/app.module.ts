@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
 import { FormatFilterPipe } from './shared/pipes/format-filter.pipe';
 import { WelcomeModule } from './welcome/welcome.module';
-
+import { GameModule } from './game/game.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { WelcomeModule } from './welcome/welcome.module';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    WelcomeModule
+    WelcomeModule,
+    GameModule
   ],
   providers: [ CoreServiceService ],
   bootstrap: [ AppComponent ]
