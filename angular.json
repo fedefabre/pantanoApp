@@ -25,7 +25,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "questions.json", "input": "./src/app/services/", "output": "./assets/" }
+              { "glob": "questions.json", "input": "./src/app/services/", "output": "./assets/" },
+              { "glob": "pantano.png", "input": "./src/assets/", "output": "./assets/" }
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",

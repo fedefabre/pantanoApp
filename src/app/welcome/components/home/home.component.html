@@ -3,7 +3,15 @@
         <h1> Pantano App 🌾 </h1>
     </section>
 </header>
-<main>
- <a [routerLink]="['preguntas']" class="btn btn-success">Jugar</a>
- <a [routerLink]="['preguntas']" class="btn btn-success">Ver Preguntas</a>
+<main [ngClass]="{mobile: mobile}">
+    <div class="alert alert-warning" role="alert">
+        Bienvenidos a las preguntas del pantano
+    </div>
+    <div class="welcome-buttons">
+        <a href="." [routerLink]="['preguntas']" class="btn btn-success">Jugar</a>
+        <a href="." [routerLink]="['preguntas']" class="btn btn-success">Practicar preguntas del programa</a>
+    </div>
 </main>
+<footer>
+    <img src="/assets/pantano.png">
+</footer>
