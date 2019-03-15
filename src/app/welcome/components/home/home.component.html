@@ -4,14 +4,39 @@
     </section>
 </header>
 <main [ngClass]="{mobile: mobile}">
-    <div class="alert alert-warning" role="alert">
-        Bienvenidos a las preguntas del pantano
+    <div class="cards">
+        <div class="card" *ngIf="!mobile">
+            <div class="card-header">
+                Jugá
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Jugá a las preguntas del pantano desde esta App</h5>
+                <p class="card-text">Desafía a tus amigos y practicá las preguntas divirtiendote.</p>
+                <a href="." class="btn btn-success btn-lg btn-block" [routerLink]="['jugar']">Jugar</a>
+            </div>
+        </div>
+        <div class="card mt-2" *ngIf="!mobile">
+            <div class="card-header">
+                Practicá las preguntas
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Encontrá todas las preguntas del pantano acá</h5>
+                <p class="card-text">Buscá las respuestas mientras ves el programa o utilizá los filtros para estudiar
+                        antes de participar.</p>
+                <a href="." class="btn btn-success btn-lg btn-block" [routerLink]="['preguntas']" >Practicar</a>
+            </div>
+        </div>
     </div>
-    <div class="welcome-buttons">
-        <a href="." [routerLink]="['preguntas']" class="btn btn-success">Jugar</a>
+    <div class="alert alert-warning" role="alert" *ngIf="mobile">
+        ¡Bienvenidos a las preguntas del pantano!
+        Utilizá el buscador para encontrar las respuestas mientras ves el programa o estudiá jugando acá mismo en
+        nuestra app
+    </div>
+    <div class="welcome-buttons" *ngIf="mobile">
+        <a href="." [routerLink]="['jugar']" class="btn btn-success">Jugar</a>
         <a href="." [routerLink]="['preguntas']" class="btn btn-success">Practicar preguntas del programa</a>
     </div>
 </main>
-<footer>
-    <img src="/assets/pantano.png">
+<footer [ngClass]="{mobile: mobile}">
+    <img *ngIf="mobile" [routerLink]="['preguntas']" src="/assets/pantano.png">
 </footer>

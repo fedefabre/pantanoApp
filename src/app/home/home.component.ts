@@ -17,7 +17,7 @@ export interface CategoriesInterface {
 })
 export class HomeComponent implements OnInit {
 
-  private originalQuestions = {};
+  private originalQuestions = [];
   private currentQuestionsByCategory = {};
   public filters = [];
   public currentQuestions = [];
@@ -46,9 +46,9 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     // Set all as default category
     this.categoryActive = this.categories[0];
-    this.coreService.getQuestions().subscribe(data => {
+    this.coreService.getQuestions().subscribe(data => {      
       this.originalQuestions = data.questions;
-      this.currentQuestionsByCategory = this.originalQuestions;
+      this.currentQuestionsByCategory = this.originalQuestions.slice(0,200);
       this.renderData();
     })
   }
@@ -65,9 +65,13 @@ export class HomeComponent implements OnInit {
 
   addFilter() {
     this.loading = true;
-    if(this.checkIfSearchIsId){
+    if(this.checkIfSearchIsId(this.currentFilterToAdd)){
       this.resetCategoryFilter();
       this.clearFilters();
+    }else{
+      this.filters = _.filter(this.filters, filter => {
+        return !this.checkIfSearchIsId(filter);
+      })
     }
     this.filters.push(this.currentFilterToAdd);
     this.currentFilterToAdd = '';
@@ -118,8 +122,7 @@ export class HomeComponent implements OnInit {
 
   private filter() {
     return _.filter(this.currentQuestionsByCategory, row => {
-      if (this.filters.length > 0) {
-        return _.some(this.filters, filter => {
+        return _.every(this.filters, filter => {
           if(this.checkIfSearchIsId(filter)){
             return +row.number === +filter;
           }else{
@@ -127,9 +130,6 @@ export class HomeComponent implements OnInit {
             return new RegExp("\\b" + search + "\\b").test(row.quest_for_search);
           }
         });
-      }else{
-        return true;
-      }
     });
   }
 
