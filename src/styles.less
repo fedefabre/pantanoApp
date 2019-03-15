@@ -1,6 +1,109 @@
+@import "app/shared/styles/variables.less";
 /* You can add global styles to this file, and also import other style files */
-html, body, #fullheight {
-
+html, body {
     min-height: 100% !important;
     height: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
 }
+
+.btn, input, li{
+    padding: 18px !important;
+    border-radius: .15rem !important;
+}
+
+input{
+    height: auto !important;
+}
+
+header {
+    &.mobile{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 69px;
+        background: white;
+        z-index: 2;
+
+        section{
+            height: 30px;
+            h1{
+                text-align: center;
+            }
+        }
+    }
+}
+
+main {
+    &.mobile{
+        margin-top: 80px;
+
+        li{
+            padding: 5px 2px !important;
+        }
+    }
+}
+
+.btn{
+    &.btn-success{
+        background: @orange !important;
+        border: @dark-orange !important;
+    }
+    &.danger{
+        background: @orange !important;
+    }        
+}
+
+.bg-info{
+    background-color: @green-cake !important;
+}
+
+.mobile{
+
+    .form-control, .btn{
+        width: 100%;
+        display: block;
+    }    
+
+    .btn{
+        margin-top: 10px;      
+    }
+}
+
+/*==================================================
+ * Shadow effect
+ * ===============================================*/
+ .shadow
+ {
+   position: relative;
+ }
+ .shadow:before, .shadow:after
+ {
+   z-index: -1;
+   position: absolute;
+   content: "";
+   bottom: 15px;
+   left: 10px;
+   width: 50%;
+   top: 80%;
+   max-width:300px;
+   background: #777;
+   -webkit-box-shadow: 0 15px 10px #777;
+   -moz-box-shadow: 0 15px 10px #777;
+   box-shadow: 0 15px 10px #777;
+   -webkit-transform: rotate(-3deg);
+   -moz-transform: rotate(-3deg);
+   -o-transform: rotate(-3deg);
+   -ms-transform: rotate(-3deg);
+   transform: rotate(-3deg);
+ }
+ .shadow:after
+ {
+   -webkit-transform: rotate(3deg);
+   -moz-transform: rotate(3deg);
+   -o-transform: rotate(3deg);
+   -ms-transform: rotate(3deg);
+   transform: rotate(3deg);
+   right: 10px;
+   left: auto;
+ }

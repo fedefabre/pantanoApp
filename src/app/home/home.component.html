@@ -1,23 +1,29 @@
-<header class="px-4 pt-3">
+<header class="px-4 pt-3" [ngClass]="{ mobile: mobile, shadow: mobile}">
     <section class="pb-2">
-        <h1 class="elegantshadow"> 🌾🌾 Pantano App 🌾 🌾 </h1>
-    </section>    
-    <section id="categorias">
-        <ul>
-            <li *ngFor="let category of categories" (click)="categoryFilter(category)" [ngClass]="{active: category.id === categoryActive.id}">{{category.description}}</li>
-        </ul>
+        <h1> Pantano App 🌾 </h1>
     </section>
 </header>
-<main class="px-4 pt-3" id="fullheight">
+<main class="px-4 pt-3" [ngClass]="{ mobile: mobile }">
+    <section id="categorias">
+        <ul>
+            <li *ngFor="let category of categories" (click)="categoryFilter(category)" [ngClass]="{active: category.id === categoryActive.id, shadow: mobile}">{{category.description}}</li>
+        </ul>
+    </section>
     <section>
         <form name="form" (ngSubmit)="f.form.valid && submitForm()" #f="ngForm">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Palabra ó nº pregunta" name="newFilter" [(ngModel)]="model.newFilter"
-                    #newFilter="ngModel" required>
+            <div class="input-group mb-3" *ngIf="!mobile">
+                <input type="text" class="form-control" placeholder="Filtrá palabra ó nº pregunta" name="newFilter"
+                    [(ngModel)]="model.newFilter" #newFilter="ngModel" required>
                 <div class="input-group-append">
-                    <button class="btn btn-primary" id="button-addon2">Agregar
+                    <button class="btn btn-success">Agregar
                         filtro</button>
                 </div>
+            </div>
+            <div class="mb-3 mobile" *ngIf="mobile">
+                <input type="text" class="form-control shadow" placeholder="Filtrá palabra ó nº pregunta" name="newFilter"
+                    [(ngModel)]="model.newFilter" #newFilter="ngModel" required>
+                <button class="btn btn-success shadow">Agregar
+                    filtro</button>
             </div>
         </form>
         <div id="filters">
@@ -30,27 +36,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <button *ngIf="filters.length > 1" (click)="clearFilters()" class="btn btn-danger">Borrar filtros</button>
+            <button *ngIf="filters.length > 1" [ngClass]="{ shadow: mobile }" (click)="clearFilters()" class="btn btn-danger">Borrar
+                filtros</button>
         </div>
     </section>
-    <section class="mt-3 grid">
+    <section class="mt-3" id="answers">
         <p>{{currentQuestions.length}} preguntas encontradas</p>
-        <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Pregunta</th>
-                        <th scope="col">Respuesta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let row of currentQuestions">
-                        <th scope="row">{{row.number}}</th>
-                        <td>{{row.quest}}</td>
-                        <td>{{row.ans}}</td>
-                    </tr>
-            </table>
+        <div class="card-columns">
+            <div class="card text-white bg-info mb-3" *ngFor="let row of currentQuestions">
+                <div class="card-header"><strong>#{{row.number}}</strong> - {{row.quest}}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{row.ans}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="cards-group">
+
         </div>
         <div class="loader" *ngIf="loading">
             <div class="spinner-grow text-primary" role="status">
@@ -79,7 +80,7 @@
             </div>
         </div>
     </section>
-    <footer class="px-4 py-2">
-        <a href="https://federicofabre.com">@fedefabre</a> / <a href="https://federicofabre.com">@matimiguenz</a>
-    </footer>
 </main>
+<footer class="px-4 py-2">
+    <a href="https://federicofabre.com">@fedefabre</a> / <a href="https://federicofabre.com">@matimiguenz</a>
+</footer>

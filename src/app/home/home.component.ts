@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   public loading: boolean;
   public model: any = {};
   public categoryActive: CategoriesInterface;
+  public mobile = false;
 
   // TODO: get categories from BE
   public categories: CategoriesInterface[] = [
@@ -34,14 +35,19 @@ export class HomeComponent implements OnInit {
     { id: 4, value: 'mundi', description: 'Mundi', keywords: [] }
   ]
 
-  constructor(public coreService: CoreServiceService) { }
+  constructor(public coreService: CoreServiceService) { 
+    if (window.screen.width < 500) {
+      console.log('mobile');
+      this.mobile = true;
+    }
+  }
 
   ngOnInit() {
     this.loading = true;
     // Set all as default category
     this.categoryActive = this.categories[0];
     this.coreService.getQuestions().subscribe(data => {
-      this.originalQuestions = data;
+      this.originalQuestions = data.questions;
       this.renderData();
     })
   }
