@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     this.categoryActive = this.categories[0];
     this.coreService.getQuestions().subscribe(data => {      
       this.originalQuestions = data.questions;
-      this.currentQuestionsByCategory = this.originalQuestions.slice(0,200);
+      this.currentQuestionsByCategory = this.originalQuestions;
       this.renderData();
     })
   }
