@@ -18,6 +18,7 @@ export interface CategoriesInterface {
 export class HomeComponent implements OnInit {
 
   private originalQuestions = {};
+  private currentQuestionsByCategory = {};
   public filters = [];
   public currentQuestions = [];
   public currentFilterToAdd = '';
@@ -29,10 +30,10 @@ export class HomeComponent implements OnInit {
   // TODO: get categories from BE
   public categories: CategoriesInterface[] = [
     { id: 0, value: 'all', description: 'Todas', keywords: [] },
-    { id: 1, value: 'fechas', description: 'Fechas', keywords: ['año', 'mes', 'dia', 'dias'] },
-    { id: 2, value: 'medidas', description: 'Medidas', keywords: ['metro', 'metros', 'londitud', 'profundidad'] },
-    { id: 3, value: 'personajes', description: 'Personajes', keywords: [] },
-    { id: 4, value: 'mundi', description: 'Mundi', keywords: [] }
+    { id: 1, value: 'dates', description: 'Fechas', keywords: ['año', 'mes', 'dia', 'fecha'] },
+    { id: 2, value: 'meassures', description: 'Medidas', keywords: ['metro', 'metros', 'londitud', 'profundidad'] },
+    { id: 3, value: 'characters', description: 'Personajes', keywords: ['actor', 'cantante', 'autor', 'rock'] },
+    { id: 4, value: 'mundi', description: 'Mundi', keywords: [ 'pais', 'capital', 'barrio', 'continente'] }
   ]
 
   constructor(public coreService: CoreServiceService) { 
@@ -48,6 +49,7 @@ export class HomeComponent implements OnInit {
     this.categoryActive = this.categories[0];
     this.coreService.getQuestions().subscribe(data => {
       this.originalQuestions = data.questions;
+      this.currentQuestionsByCategory = this.originalQuestions;
       this.renderData();
     })
   }
@@ -64,6 +66,10 @@ export class HomeComponent implements OnInit {
 
   addFilter() {
     this.loading = true;
+    if(this.checkIfSearchIsId){
+      this.resetCategoryFilter();
+      this.clearFilters();
+    }
     this.filters.push(this.currentFilterToAdd);
     this.currentFilterToAdd = '';
     this.model.newFilter = '';
@@ -85,11 +91,20 @@ export class HomeComponent implements OnInit {
   }
 
   categoryFilter(category) {
-    this.clearFilters();
     this.categoryActive = category;
-    if (category === 'all') {
-      this.clearFilters();
+    if (category.value === 'all') {
+      this.currentQuestionsByCategory = this.originalQuestions;
+    }else{
+      this.currentQuestionsByCategory = this.filterByCategory(category);
     }
+    this.clearFilters();
+    this.renderData();
+  }
+
+  resetCategoryFilter(){
+    this.loading = true;
+    this.currentQuestionsByCategory = this.originalQuestions;
+    this.categoryActive = this.categories[0];
   }
 
   clearFilters() {
@@ -98,16 +113,36 @@ export class HomeComponent implements OnInit {
     this.renderData();
   }
 
+  formatSearch(search): string{
+    return search.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
   private filter() {
-    return _.filter(this.originalQuestions, row => {
+    return _.filter(this.currentQuestionsByCategory, row => {
       if (this.filters.length > 0) {
         return _.some(this.filters, filter => {
-          return new RegExp("\\b" + filter.toLowerCase() + "\\b").test(row.question.toLowerCase());
-        })
-      } else {
+          if(this.checkIfSearchIsId(filter)){
+            return +row.number === +filter;
+          }else{
+            const search = this.formatSearch(filter);
+            return new RegExp("\\b" + search + "\\b").test(row.quest_for_search);
+          }
+        });
+      }else{
         return true;
       }
     });
+  }
+
+  private checkIfSearchIsId(value): boolean{
+    var reg = /^\d+$/;
+    return reg.test(value);
+  }
+
+  private filterByCategory(category){
+    return _.filter(this.originalQuestions, (question) => {
+      return question.category.indexOf(category.value) > -1;
+    })
   }
 
 }

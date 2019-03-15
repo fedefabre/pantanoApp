@@ -8,6 +8,7 @@ import { CoreServiceService } from './services/core-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
 import { FormatFilterPipe } from './shared/pipes/format-filter.pipe';
+import { WelcomeModule } from './welcome/welcome.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FormatFilterPipe } from './shared/pipes/format-filter.pipe';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    WelcomeModule
   ],
   providers: [ CoreServiceService ],
   bootstrap: [ AppComponent ]

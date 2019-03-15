@@ -1,86 +1,87 @@
-<header class="px-4 pt-3" [ngClass]="{ mobile: mobile, shadow: mobile}">
-    <section class="pb-2">
-        <h1> Pantano App 🌾 </h1>
-    </section>
-</header>
-<main class="px-4 pt-3" [ngClass]="{ mobile: mobile }">
-    <section id="categorias">
-        <ul>
-            <li *ngFor="let category of categories" (click)="categoryFilter(category)" [ngClass]="{active: category.id === categoryActive.id, shadow: mobile}">{{category.description}}</li>
-        </ul>
-    </section>
-    <section>
-        <form name="form" (ngSubmit)="f.form.valid && submitForm()" #f="ngForm">
-            <div class="input-group mb-3" *ngIf="!mobile">
-                <input type="text" class="form-control" placeholder="Filtrá palabra ó nº pregunta" name="newFilter"
-                    [(ngModel)]="model.newFilter" #newFilter="ngModel" required>
-                <div class="input-group-append">
-                    <button class="btn btn-success">Agregar
-                        filtro</button>
-                </div>
-            </div>
-            <div class="mb-3 mobile" *ngIf="mobile">
-                <input type="text" class="form-control shadow" placeholder="Filtrá palabra ó nº pregunta" name="newFilter"
-                    [(ngModel)]="model.newFilter" #newFilter="ngModel" required>
-                <button class="btn btn-success shadow">Agregar
-                    filtro</button>
-            </div>
-        </form>
-        <div id="filters">
-            <div *ngFor="let categoryFilter of categoryActive.keywords" class="alert alert-success fade show" role="alert">
-                <strong>{{categoryFilter}}</strong>
-            </div>
-            <div *ngFor="let filter of filters" class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>{{ filter | formatFilter }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="removeFilter(filter)">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <button *ngIf="filters.length > 1" [ngClass]="{ shadow: mobile }" (click)="clearFilters()" class="btn btn-danger">Borrar
-                filtros</button>
-        </div>
-    </section>
-    <section class="mt-3" id="answers">
-        <p>{{currentQuestions.length}} preguntas encontradas</p>
-        <div class="card-columns">
-            <div class="card text-white bg-info mb-3" *ngFor="let row of currentQuestions">
-                <div class="card-header"><strong>#{{row.number}}</strong> - {{row.quest}}</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{row.ans}}</h5>
-                </div>
-            </div>
-        </div>
-        <div class="cards-group">
-
-        </div>
-        <div class="loader" *ngIf="loading">
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Cargando...</span>
-            </div>
-            <div class="spinner-grow text-secondary" role="status">
-                <span class="sr-only">Cargando...</span>
-            </div>
-            <div class="spinner-grow text-success" role="status">
-                <span class="sr-only">Cargando...</span>
-            </div>
-            <div class="spinner-grow text-danger" role="status">
-                <span class="sr-only">Cargando...</span>
-            </div>
-            <div class="spinner-grow text-warning" role="status">
-                <span class="sr-only">Cargando...</span>
-            </div>
-            <div class="spinner-grow text-info" role="status">
-                <span class="sr-only">Cargando...</span>
-            </div>
-            <div class="spinner-grow text-light" role="status">
-                <span class="sr-only">Cargando...</span>
-            </div>
-            <div class="spinner-grow text-dark" role="status">
-                <span class="sr-only">Cargando...</span>
-            </div>
-        </div>
-    </section>
-</main>
-<footer class="px-4 py-2">
-    <a href="https://federicofabre.com">@fedefabre</a> / <a href="https://federicofabre.com">@matimiguenz</a>
-</footer>
+<div class="animated fadein">
+        <header class="px-4 pt-3" [ngClass]="{ mobile: mobile, shadow: mobile}">
+                <section class="pb-2">
+                    <h1> Pantano App 🌾 </h1>
+                </section>
+            </header>
+            <main class="px-4 pt-3" [ngClass]="{ mobile: mobile }">
+                <section id="categorias">
+                    <ul>
+                        <li *ngFor="let category of categories" (click)="categoryFilter(category)" [ngClass]="{active: category.id === categoryActive.id, shadow: mobile}">{{category.description}}</li>
+                    </ul>
+                </section>
+                <section>
+                    <form name="form" (ngSubmit)="f.form.valid && submitForm()" #f="ngForm">
+                        <div class="input-group mb-3" *ngIf="!mobile">
+                            <input type="text" class="form-control" placeholder="Filtrá palabra ó nº pregunta" name="newFilter"
+                                [(ngModel)]="model.newFilter" #newFilter="ngModel" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-success">Agregar
+                                    filtro</button>
+                            </div>
+                        </div>
+                        <div class="mb-3 mobile" *ngIf="mobile">
+                            <input type="text" class="form-control shadow" placeholder="Filtrá palabra ó nº pregunta" name="newFilter"
+                                [(ngModel)]="model.newFilter" #newFilter="ngModel" required>
+                            <button class="btn btn-success shadow">Agregar
+                                filtro</button>
+                        </div>
+                    </form>
+                    <div id="filters">
+                        <div *ngFor="let categoryFilter of categoryActive.keywords" class="alert alert-success fade show" role="alert">
+                            <strong>{{categoryFilter}}</strong>
+                        </div>
+                        <div *ngFor="let filter of filters" class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{ filter | formatFilter }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="removeFilter(filter)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <button *ngIf="filters.length > 1" [ngClass]="{ shadow: mobile }" (click)="clearFilters()" class="btn btn-danger">Borrar
+                            filtros</button>
+                    </div>
+                </section>
+                <section class="mt-3" id="answers">
+                    <div class="card-columns">
+                        <div class="card text-white bg-info mb-3" *ngFor="let row of currentQuestions">
+                            <div class="card-header"><strong>#{{row.number}}</strong> - {{row.quest}}</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{row.ans}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards-group">
+            
+                    </div>
+                    <div class="loader" *ngIf="loading">
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                        <div class="spinner-grow text-secondary" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                        <div class="spinner-grow text-success" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                        <div class="spinner-grow text-danger" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                        <div class="spinner-grow text-warning" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                        <div class="spinner-grow text-info" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                        <div class="spinner-grow text-light" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                        <div class="spinner-grow text-dark" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <footer class="px-4 py-2">
+                <a href="https://federicofabre.com" target="_blank">@fedefabre</a> / <a href="https://www.linkedin.com/in/matias-miguenz-970402110" target="_blank">@matimiguenz</a>
+            </footer>
+</div>
