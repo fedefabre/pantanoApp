@@ -8,11 +8,18 @@ import { Component, OnInit } from '@angular/core';
 export class HomeGameComponent{
 
   mobile = false;
+  correct = false;
+  answered = false;
 
   constructor() { 
     if (window.screen.width < 500) {
       this.mobile = true;
     }
+  }
+
+  checkAnswer(bool) {
+    this.correct = bool;
+    this.answered = true;
   }
 
 }
