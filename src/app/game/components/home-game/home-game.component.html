@@ -5,16 +5,30 @@
         </section>
     </header>
     <main class="px-4 pt-3" [ngClass]="{ mobile: mobile }">
-        <div class="card">
+        <div class="animated fadeIn answer" *ngIf="incorrect">
+            <div>🌾❌🌾</div>
+            <p>
+                Respuesta Incorrecta 😳
+            </p>
+    
+        </div>
+        <div class="card" *ngIf="!incorrect">
             <div class="card-header">
-                A partir de la próxima semana jugá igual que en el programa
+                Pregunta 2
             </div>
 
             <div class="card-body">
                 <h5 class="card-title"></h5>
-                <p class="card-text">¡Muy pronto!</p>
-                <a href="https://instagram.com/pantanoapp" class="btn btn-success"><strong>¡Seguinos en Instragram!</strong> <br> enterate cuando está disponible</a>
-                <a href="#" [routerLink]="['preguntas']" class="btn btn-primary">Ir a estudiar las preguntas</a>
+                <p class="card-text">¿En qué país se encuentra el aeropuerto internacional benito juárez?</p>
+            </div>
+
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary"  style="cursor: pointer;">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> México
+                </label>
+                <label class="btn btn-secondary" style="margin-left: 10px; cursor: pointer;">
+                    <input type="radio" name="options" id="option3" autocomplete="off" (click)="incorrect=true"> Bariloche
+                </label>
             </div>
         </div>
     </main>
